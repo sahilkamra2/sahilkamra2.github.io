@@ -36,6 +36,20 @@ const BlogIndex = ({ data, location }) => {
                   __html: node.frontmatter.description || node.excerpt,
                 }}
               />
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
+              <p>page increase para ....</p>
             </section>
           </article>
         )
