@@ -7,11 +7,67 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+// import { useStaticQuery, graphql } from "gatsby"
+import { rhythm, scale } from "../utils/typography";
+// import Image from "gatsby-image"
 
-import { rhythm, scale } from "../utils/typography"
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(1),
+   
+    [theme.breakpoints.down('xs')]: {
+      backgroundColor: 'green',
+      height:'10px !important'
+    },
+    height:"150px"
+  },
+  mainbody:{
+    marginTop:"120px",
+    [theme.breakpoints.down('xs')]: {
+      marginTop:"40px",
+    },
+  },
+  bannerfont:{
+    fontSize:"18px",
+    [theme.breakpoints.down('xs')]: {
+      fontSize:"14px",
+    },
+    
+
+  },
+  bannerTitle:{
+    [theme.breakpoints.down('xs')]: {
+      display:"none",
+      
+    },
+  },
+  bannerTitlePhone:{
+    display:'none',
+    [theme.breakpoints.down('xs')]: {
+      display:'inline-block',
+      paddingLeft:"2px"
+    },
+  },
+  links:{
+    justifyContent:"flex-end",
+    [theme.breakpoints.down('xs')]: {
+      justifyContent:"center",
+      // alignItem:"center"
+    },
+    [theme.breakpoints.down(300)]: {
+      justifyContent:"flex-start",
+      alignItem:"center"
+    },
+  }
+}));
+
 
 const Layout = ({ location, title, children }) => {
+
+ 
   const rootPath = `${__PATH_PREFIX__}/`
+  const classes=useStyles()
   let header
 
   if (location.pathname === rootPath) {
@@ -58,104 +114,100 @@ const Layout = ({ location, title, children }) => {
   }
 
   useEffect(()=>{
+    console.log(document.getElementById("header").style.height )
     const windowGlobal = typeof window !== 'undefined' && window
     windowGlobal.onscroll = function() {scrollFunction()};
     
     function scrollFunction() {
-      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        console.log("scrolling")
+      if ((document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) && document.body.clientWidth>600) {
+        // console.log("scrolling")
+       
         document.getElementById("header").style.height = "80px";
-        
-      } else {
-        console.log("decreased scrolling")
-        document.getElementById("header").style.height = "120px";
-
+      
       }
-    };
-    console.log("Printing")
+        
+      else {
+        // console.log("decreased scrolling")
+       
+        
+        document.getElementById("header").style.height = "150px";
+         
+      
+    }
+  }
+    
   })
-//   useEffect(()=>{
-//     const targetNode = document.getElementById('head');
 
-// // Options for the observer (which mutations to observe)
-// const config = { attributes: true, childList: true, subtree: true };
-
-// // Callback function to execute when mutations are observed
-// const callback = function(mutationsList, observer) {
-//     // Use traditional 'for loops' for IE 11
-//     for(let mutation of mutationsList) {
-//         if (mutation.type === 'childList') {
-//             console.log('A child node has been added or removed.');
-//         }
-//         else if (mutation.type === 'attributes') {
-//             console.log('The ' + mutation.attributeName + ' attribute was modified.');
-//         }
-//     }
-// };
-
-// Create an observer instance linked to the callback function
-// const observer = new MutationObserver(callback);
-
-// // Start observing the target node for configured mutations
-// observer.observe(targetNode, config);
-
-//   })
 const preventDefault = event => event.preventDefault();
   return (
     <div>
       
 <header  style={{background:"",}}>
 
-<AppBar elevation={0} id="header" position="fixed" style={{transition:"0.2s",height:"120px",background:"white",elevation:0}}>
-        <Toolbar style={{background:"",maxWidth:"850px",margin:"auto",width:"100%",marginBottom:"0px"}}>
-          <IconButton edge="start"  color="inherit" aria-label="menu">
-           
-          </IconButton>
-          
-           <Link style={{whiteSpace:"nowrap",
+<AppBar elevation={0} id="header" className={classes.root} position="fixed" style={{transition:"0.2s",background:"white",elevation:0}}>
+        <Toolbar style={{background:"white",maxWidth:"850px",margin:"auto",width:"100%",marginBottom:"0px"}}>
+        
+    
+           <Link to="/" className={classes.bannerTitle} style={{whiteSpace:"nowrap",
            textDecoration:"none",boxShadow:"none",
            color:"#333",
            fontSize:"1.2rem",}}>
              Sahil Kamra
            </Link> 
-      
           
-          <div style={{display:"flex", justifyContent:"flex-end",width:"100%",background:"",color:"black"}}>
+           <Link to="/" className={classes.bannerTitlePhone} style={{whiteSpace:"nowrap",
+           textDecoration:"none",boxShadow:"none",
+           color:"#333",
+           fontSize:"1.2rem",}}>
+             SK
+           </Link> 
+      
+           <div className={classes.links} style={{display:"flex", marginLeft:"0px",
+         width:"100%",
+          background:"",
+          color:"black",
+          whiteSpace:"nowrap",
+          overflow:"hidden"}}>
+        
           
            <div > 
            <Button style={{fontSize:"1.2rem"}}>
              
-             <Link to="/about" style={{fontSize:"1.2rem",
+             <Link to="/about" className={classes.bannerfont} style={{
              textTransform:"none",
              textDecoration:"none",
              boxShadow:"none",
-             fontSize:"16px",
-             padding:"0.5em",
-             margin:"0 0.5rem",whiteSpace:"nowrap",color:"rgb(0,0,0,0.6"}}>
+              paddingLeft:"10px",
+             padding:"0.1em",
+            
+             margin:"0 0.2rem",color:"rgb(0,0,0,0.6"}}>
               About me
             </Link>
                </Button>
                <Button style={{fontSize:"1.2rem",}}>
              
-             <Link to="/about" style={{fontSize:"1.2rem",
+             <Link to="/articles" className={classes.bannerfont} style={{
              textTransform:"none",
              textDecoration:"none",
              padding:"1.rem",
-             fontSize:"16px",
-             padding:"0.5em",
-             boxShadow:"none",whiteSpace:"nowrap",margin:"0 0.5rem",color:"rgb(0,0,0,0.6"}}>
+            
+             padding:"0.1em",
+             boxShadow:"none",
+            //  whiteSpace:"nowrap",
+             margin:"0 0.2rem",color:"rgb(0,0,0,0.6"}}>
               Articles
             </Link>
                </Button>
                <Button style={{}}>
              
-             <Link to="/about" style={{fontSize:"1.2rem",margin:"0 0.5rem",
+             <Link to="/contact" className={classes.bannerfont} style={{margin:"0 0.2rem",
              textTransform:"none",
-             fontSize:"16px",
-             padding:"0.5em",
+         
+             padding:"0.1em",
              textDecoration:"none",
              boxShadow:"none",
-             whiteSpace:"nowrap",color:"rgb(0,0,0,0.6"}}>
+            //  whiteSpace:"nowrap",
+             color:"rgb(0,0,0,0.6"}}>
         Contact
       </Link>
                </Button>
@@ -170,20 +222,23 @@ const preventDefault = event => event.preventDefault();
 
 </header>
     <div
+      className={classes.mainbody}
       style={{
         marginLeft: `auto`,
         marginRight: `auto`,
         maxWidth: rhythm(28),
-        marginTop:"120px",
+        
         padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
       }}
     >
    
-      <main>{children}</main>
+      <main>{children}
+      
+      </main>
       <footer>
-        © {new Date().getFullYear()}, Built with
+        © {new Date().getFullYear()}
         {` `}
-        <a href="https://www.gatsbyjs.org">Gatsby</a>
+        
       </footer>
     </div>
     </div>
